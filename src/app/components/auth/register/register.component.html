@@ -1,1 +1,17 @@
-<p>register works!</p>
+<div class="register-container">
+    <h2>Register</h2>
+    <form (submit)="register()">
+      <input type="text" placeholder="Username" name="Username" [(ngModel)]="user.Username" required>
+      <input type="password" placeholder="Password" name="Password" [(ngModel)]="user.Password" required>
+      
+      <label>Select Role:</label>
+      <select [(ngModel)]="user.Role" name="Role" required>
+        <option value="Employer">Employer</option>
+        <option value="Applicant">Applicant</option>
+      </select>
+  
+      <button type="submit">Register</button>
+    </form>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <p>Already have an account? <a routerLink="/login">Login</a></p>
+  </div>
