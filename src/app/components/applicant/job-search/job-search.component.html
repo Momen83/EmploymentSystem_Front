@@ -1,1 +1,19 @@
-<p>job-search works!</p>
+<div class="job-search-container">
+  <h2>Job Listings</h2>
+  <input type="text" [(ngModel)]="title" placeholder="Search by title...">
+  <button (click)="searchJobs()">Search</button>
+  
+  <ul>
+    <li *ngFor="let job of jobs">
+      <strong>{{ job.title }}</strong>
+      <p>{{job.description}}</p>
+      <button (click)="apply(job.id)">Apply</button>
+    </li>
+  </ul>
+  
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+</div>

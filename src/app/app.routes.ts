@@ -6,6 +6,7 @@ import { CreateVacancyComponent } from './components/employer/create-vacancy/cre
 import { JobSearchComponent } from './components/applicant/job-search/job-search.component';
 import { ApplyJobComponent } from './components/applicant/apply-job/apply-job.component';
 import { authGuard } from './guards/auth.guard';
+import { ApplicantGuard } from './guards/applicant.guard';
 
 export const routes: Routes = [
 
@@ -14,6 +15,6 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'employer/vacancies', component: VacanciesComponent, canActivate: [authGuard] },
     { path: 'employer/create-vacancy', component: CreateVacancyComponent, canActivate: [authGuard] },
-    { path: 'applicant/jobs', component: JobSearchComponent, canActivate: [authGuard] },
-    { path: 'applicant/apply/:id', component: ApplyJobComponent, canActivate: [authGuard] },
+    { path: 'applicant/jobs', component: JobSearchComponent, canActivate: [authGuard,ApplicantGuard] },
+    { path: 'applicant/apply/:id', component: ApplyJobComponent, canActivate: [authGuard,ApplicantGuard] },
 ];

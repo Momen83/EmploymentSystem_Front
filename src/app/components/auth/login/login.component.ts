@@ -20,11 +20,20 @@ export class LoginComponent {
   login() {
     this.authService.login(this.credentials).subscribe(
       (response: any) => {
-        this.authService.storeToken(response.token);
+        this.authService.storeToken(response.user);
         console.log(response);
-        console.log(response.user);
-        localStorage.setItem('userRole', response.role); // Store user role
-        this.router.navigate(['/']);
+        const userRole = this.authService.getUserRoleFromToken(response.user);
+        if (userRole === 'Employer') {
+          this.router.navigate(['/employer/vacancies']);
+
+        } 
+        else if (userRole === 'Applicant') {
+          this.router.navigate(['/applicant/jobs']);
+        } 
+        else {
+          this.router.navigate(['/']);
+        }
+  
       },
       (error) => {
 

@@ -19,14 +19,32 @@ export class AuthService {
 
   storeToken(token: string) {
     localStorage.setItem('jwtToken', token);
+    const userRole = this.getUserRoleFromToken(token);
+    
+    console.log(userRole);
+    if (userRole) {
+      localStorage.setItem('userRole', userRole); // Store the role
+    }
   }
 
   getToken(): string | null {
     return localStorage.getItem('jwtToken');
   }
+  
+  getUserRoleFromToken(token: string): string | null {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1])); // Decode the JWT payload
+      console.log(payload);
+      return payload.role || null; // Extract 'role' field
+    } catch (e) {
+      return null;
+    }
+  }
 
   logout() {
     localStorage.removeItem('jwtToken');
+    localStorage.removeItem('userRole');
+
   }
 
 }
